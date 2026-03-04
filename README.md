@@ -11,7 +11,12 @@
 
 <!-- 2. プロフィールや連絡先を変更 -->
 ## <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="24"> Hi there
+<div align="center">
+  <h2>📅 Daily Commits (last 14 days)</h2>
 
+  <!--START_SECTION:daily_commits-->
+  <!--END_SECTION:daily_commits-->
+</div>
 - 🧑‍💻 Full-stack / GeoAI / Remote-Sensing
 - 🌱 I’m currently learning **Go** & **Terraform**
 - 🛰️ Doing: Sentinel/Planet imagery tooling, QGIS automation, Next.js apps
