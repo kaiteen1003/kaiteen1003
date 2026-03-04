@@ -12,26 +12,8 @@
 <!-- 2. プロフィールや連絡先を変更 -->
 ## <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="24"> Hi there
 <div align="center">
-  <h2>📅 Daily Commits (last 14 days)</h2>
-
-  <!--START_SECTION:daily_commits-->
-- 2026-02-19: **0** commits
-- 2026-02-20: **0** commits
-- 2026-02-21: **0** commits
-- 2026-02-22: **0** commits
-- 2026-02-23: **0** commits
-- 2026-02-24: **0** commits
-- 2026-02-25: **0** commits
-- 2026-02-26: **0** commits
-- 2026-02-27: **0** commits
-- 2026-02-28: **0** commits
-- 2026-03-01: **0** commits
-- 2026-03-02: **0** commits
-- 2026-03-03: **0** commits
-- 2026-03-04: **3** commits
-<!--END_SECTION:daily_commits-->
+  <img src="./assets/monthly-commits.svg" width="900" alt="Monthly commits graph" />
 </div>
-
 
 - 🧑‍💻 Full-stack / GeoAI / Remote-Sensing
 - 🌱 I’m currently learning **Go** & **Terraform**
