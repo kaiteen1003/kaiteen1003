@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="260" viewBox="0 0 980 260">
+  <rect x="0" y="0" width="980" height="260" fill="white"/>
+  <text x="490" y="26" text-anchor="middle" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto" font-size="18" font-weight="700">Monthly Commits (last 12 months)</text>
+
+  <!-- 軸 -->
+  <line x1="50" y1="200" x2="960" y2="200" stroke="#CBD5E1" stroke-width="1"/>
+  <line x1="50" y1="40" x2="50" y2="200" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- maxラベル -->
+  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">65</text>
+  <text x="42" y="200" text-anchor="end" dominant-baseline="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">0</text>
+
+    <rect x="50" y="116" width="66" height="84" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-04: 34 commits</title>
+  
+    <text x="83" y="110" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">34</text>
+  
+      <text x="83" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-04</text>
+    
+    <rect x="126" y="173" width="66" height="27" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-05: 11 commits</title>
+  
+    <text x="159" y="167" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">11</text>
+  
+    <rect x="202" y="131" width="66" height="69" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-06: 28 commits</title>
+  
+    <text x="235" y="125" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">28</text>
+  
+      <text x="235" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-06</text>
+    
+    <rect x="278" y="102" width="66" height="98" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-07: 40 commits</title>
+  
+    <text x="311" y="96" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">40</text>
+  
+    <rect x="354" y="40" width="66" height="160" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-08: 65 commits</title>
+  
+    <text x="387" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">65</text>
+  
+      <text x="387" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-08</text>
+    
+    <rect x="430" y="200" width="66" height="0" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-09: 0 commits</title>
+  
+    <text x="463" y="194" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">0</text>
+  
+    <rect x="506" y="170" width="66" height="30" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-10: 12 commits</title>
+  
+    <text x="539" y="164" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">12</text>
+  
+      <text x="539" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-10</text>
+    
+    <rect x="582" y="200" width="66" height="0" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-11: 0 commits</title>
+  
+    <text x="615" y="194" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">0</text>
+  
+    <rect x="658" y="200" width="66" height="0" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2025-12: 0 commits</title>
+  
+    <text x="691" y="194" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">0</text>
+  
+      <text x="691" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-12</text>
+    
+    <rect x="734" y="190" width="66" height="10" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2026-01: 4 commits</title>
+  
+    <text x="767" y="184" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">4</text>
+  
+    <rect x="810" y="200" width="66" height="0" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2026-02: 0 commits</title>
+  
+    <text x="843" y="194" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">0</text>
+  
+      <text x="843" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">26-02</text>
+    
+    <rect x="886" y="188" width="66" height="12" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2026-03: 5 commits</title>
+  
+    <text x="919" y="182" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">5</text>
+  </svg>
