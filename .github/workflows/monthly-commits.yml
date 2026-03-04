@@ -1,0 +1,155 @@
+name: Update monthly commits graph
+
+on:
+  schedule:
+    - cron: "10 0 * * *" # 毎日 00:10 UTC（JST 09:10）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate monthly commits SVG
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const path = require("path");
+
+            const owner = context.repo.owner; // kaiteen1003
+            const monthsBack = 12;
+
+            function monthStartUTC(d) {
+              return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1, 0, 0, 0));
+            }
+            function addMonthsUTC(d, m) {
+              return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + m, 1, 0, 0, 0));
+            }
+            function fmtYM(d) {
+              const y = d.getUTCFullYear();
+              const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+              return `${y}-${m}`;
+            }
+
+            const query = `
+              query($login:String!, $from:DateTime!, $to:DateTime!) {
+                user(login:$login) {
+                  contributionsCollection(from:$from, to:$to) {
+                    contributionCalendar {
+                      weeks {
+                        contributionDays {
+                          contributionCount
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `;
+
+            const now = new Date();
+            const currentMonth = monthStartUTC(now);
+            const start = addMonthsUTC(currentMonth, -(monthsBack - 1)); // 11ヶ月前の月初
+
+            const labels = [];
+            const values = [];
+
+            for (let i = 0; i < monthsBack; i++) {
+              const from = addMonthsUTC(start, i);
+              const to = addMonthsUTC(start, i + 1);
+              labels.push(fmtYM(from));
+
+              const res = await github.graphql(query, {
+                login: owner,
+                from: from.toISOString(),
+                to: to.toISOString(),
+              });
+
+              let sum = 0;
+              const weeks = res.user.contributionsCollection.contributionCalendar.weeks;
+              for (const w of weeks) {
+                for (const d of w.contributionDays) {
+                  sum += d.contributionCount;
+                }
+              }
+              values.push(sum);
+            }
+
+            const max = Math.max(...values, 1);
+
+            // ===== SVG生成（シンプルな棒グラフ）=====
+            const W = 980;
+            const H = 260;
+            const padding = { l: 50, r: 20, t: 40, b: 60 };
+            const chartW = W - padding.l - padding.r;
+            const chartH = H - padding.t - padding.b;
+
+            const barGap = 10;
+            const barW = Math.floor((chartW - barGap * (monthsBack - 1)) / monthsBack);
+
+            const title = "Monthly Commits (last 12 months)";
+
+            function esc(s) {
+              return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+            }
+
+            let svg = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+              <rect x="0" y="0" width="${W}" height="${H}" fill="white"/>
+              <text x="${W/2}" y="26" text-anchor="middle" font-family="ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto" font-size="18" font-weight="700">${esc(title)}</text>
+
+              <!-- 軸 -->
+              <line x1="${padding.l}" y1="${padding.t + chartH}" x2="${W - padding.r}" y2="${padding.t + chartH}" stroke="#CBD5E1" stroke-width="1"/>
+              <line x1="${padding.l}" y1="${padding.t}" x2="${padding.l}" y2="${padding.t + chartH}" stroke="#CBD5E1" stroke-width="1"/>
+
+              <!-- maxラベル -->
+              <text x="${padding.l - 8}" y="${padding.t + 4}" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">${max}</text>
+              <text x="${padding.l - 8}" y="${padding.t + chartH}" text-anchor="end" dominant-baseline="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">0</text>
+            `;
+
+            // バー＆ラベル
+            for (let i = 0; i < monthsBack; i++) {
+              const v = values[i];
+              const x = padding.l + i * (barW + barGap);
+              const h = Math.round((v / max) * chartH);
+              const y = padding.t + (chartH - h);
+
+              // bar
+              svg += `
+                <rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="6" fill="#0EA5E9" opacity="0.9"/>
+                <title>${labels[i]}: ${v} commits</title>
+              `;
+
+              // value on top (小さめ)
+              svg += `
+                <text x="${x + barW/2}" y="${y - 6}" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">${v}</text>
+              `;
+
+              // month label（2か月おき表示でスッキリ）
+              if (i % 2 === 0) {
+                svg += `
+                  <text x="${x + barW/2}" y="${padding.t + chartH + 22}" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">${labels[i].slice(2)}</text>
+                `;
+              }
+            }
+
+            svg += `</svg>`;
+
+            const outDir = path.join(process.cwd(), "assets");
+            const outPath = path.join(outDir, "monthly-commits.svg");
+            if (!fs.existsSync(outDir)) fs.mkdirSync(outDir);
+
+            fs.writeFileSync(outPath, svg.trim() + "\n", "utf8");
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/monthly-commits.svg
+          git commit -m "chore: update monthly commits graph" || exit 0
+          git push
