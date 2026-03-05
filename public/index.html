@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mini Games | Memory & Slide Puzzle</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="wrap header">
+      <h1>🎮 Mini Games</h1>
+      <p class="sub">Memory（神経衰弱） / Slide Puzzle（スライドパズル）</p>
+    </header>
+
+    <main class="wrap">
+      <nav class="tabs" aria-label="Game Tabs">
+        <button id="tab-memory" class="tab active" type="button">
+          🧠 Memory
+        </button>
+        <button id="tab-slide" class="tab" type="button">
+          🧩 Slide Puzzle
+        </button>
+      </nav>
+
+      <!-- MEMORY -->
+      <section id="panel-memory" class="panel">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <label class="label">難易度</label>
+            <select id="memory-difficulty">
+              <option value="4">4×4 (16枚)</option>
+              <option value="6">6×6 (36枚)</option>
+            </select>
+
+            <label class="label">テーマ</label>
+            <select id="memory-theme">
+              <option value="emoji">Emoji</option>
+              <option value="geo">Geo</option>
+            </select>
+          </div>
+
+          <div class="toolbar-right">
+            <div class="stat">手数: <span id="memory-moves">0</span></div>
+            <div class="stat">時間: <span id="memory-time">0</span>s</div>
+            <button id="memory-restart" class="btn" type="button">
+              ↻ リスタート
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="memory-board"
+          class="memory-board"
+          aria-label="Memory Board"
+        ></div>
+        <p class="hint">2枚めくって同じ絵柄を揃えると残ります。</p>
+      </section>
+
+      <!-- SLIDE -->
+      <section id="panel-slide" class="panel hidden">
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <label class="label">サイズ</label>
+            <select id="slide-size">
+              <option value="3">3×3</option>
+              <option value="4" selected>4×4</option>
+              <option value="5">5×5</option>
+            </select>
+          </div>
+
+          <div class="toolbar-right">
+            <div class="stat">手数: <span id="slide-moves">0</span></div>
+            <div class="stat">時間: <span id="slide-time">0</span>s</div>
+            <button id="slide-shuffle" class="btn" type="button">
+              🔀 シャッフル
+            </button>
+          </div>
+        </div>
+
+        <div class="slide-wrap">
+          <div
+            id="slide-board"
+            class="slide-board"
+            aria-label="Slide Puzzle Board"
+          ></div>
+        </div>
+
+        <p class="hint">空白（□）の隣のタイルをクリックして動かします。</p>
+      </section>
+
+      <footer class="footer">
+        <span>Made for GitHub Profile</span>
+        <span class="dot">•</span>
+        <a href="https://github.com/" target="_blank" rel="noreferrer"
+          >GitHub</a
+        >
+      </footer>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
