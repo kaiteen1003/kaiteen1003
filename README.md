@@ -10,7 +10,7 @@
 <h1>👋 Kaito Ishitobi</h1>
 ## 🎮 Mini Games
 - 🧠 Memory（神経衰弱） / 🧩 Slide Puzzle（スライドパズル）
-- Play: https://<YOUR-USERNAME>.github.io/<YOUR-USERNAME>/
+- Play: https://kaiteen1003.github.io/kaiteen1003/
 <p>
   <b>Full-Stack Web Engineer</b> building modern web apps, geospatial tools, and AI systems.<br/>
   <sub>Next.js / TypeScript / Cloud / GIS Automation / Remote Sensing</sub>
