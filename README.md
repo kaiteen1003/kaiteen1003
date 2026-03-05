@@ -8,7 +8,9 @@
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2500&pause=500&center=true&vCenter=true&width=700&lines=Full-Stack+Web+Engineer;GeoAI+%2F+Remote+Sensing;Next.js+%2B+TypeScript+%2B+Cloud+%2B+GIS" alt="Typing SVG" />
 
 <h1>👋 Kaito Ishitobi</h1>
-
+## 🎮 Mini Games
+- 🧠 Memory（神経衰弱） / 🧩 Slide Puzzle（スライドパズル）
+- Play: https://<YOUR-USERNAME>.github.io/<YOUR-USERNAME>/
 <p>
   <b>Full-Stack Web Engineer</b> building modern web apps, geospatial tools, and AI systems.<br/>
   <sub>Next.js / TypeScript / Cloud / GIS Automation / Remote Sensing</sub>
