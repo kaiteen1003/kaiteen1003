@@ -14,15 +14,15 @@
   
     <text x="24" y="78" font-family="ui-sans-serif,system-ui" font-size="12" fill="#E5E7EB">HTML</text>
     <rect x="170" y="68" width="280" height="10" rx="5" fill="#1F2937"/>
-    <rect x="170" y="68" width="109" height="10" rx="5" fill="#22C55E"/>
+    <rect x="170" y="68" width="114" height="10" rx="5" fill="#22C55E"/>
   
     <text x="24" y="96" font-family="ui-sans-serif,system-ui" font-size="12" fill="#E5E7EB">JavaScript</text>
     <rect x="170" y="86" width="280" height="10" rx="5" fill="#1F2937"/>
-    <rect x="170" y="86" width="76" height="10" rx="5" fill="#22C55E"/>
+    <rect x="170" y="86" width="89" height="10" rx="5" fill="#22C55E"/>
   
     <text x="24" y="114" font-family="ui-sans-serif,system-ui" font-size="12" fill="#E5E7EB">CSS</text>
     <rect x="170" y="104" width="280" height="10" rx="5" fill="#1F2937"/>
-    <rect x="170" y="104" width="69" height="10" rx="5" fill="#22C55E"/>
+    <rect x="170" y="104" width="75" height="10" rx="5" fill="#22C55E"/>
   
     <text x="24" y="132" font-family="ui-sans-serif,system-ui" font-size="12" fill="#E5E7EB">Python</text>
     <rect x="170" y="122" width="280" height="10" rx="5" fill="#1F2937"/>
