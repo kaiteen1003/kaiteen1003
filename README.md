@@ -12,8 +12,7 @@
   <img src="https://user-images.githubusercontent.com/74038190/226127923-0e8b7792-7b3c-462b-951b-63c96ba1a5af.gif" width="100">
 </h1>
 
-## 🎮 Mini Games
-- Play: https://kaiteen1003.github.io/kaiteen1003/
+- Minigame Play: https://kaiteen1003.github.io/kaiteen1003/
 <p>
   <b>Full-Stack Web Engineer</b> building modern web apps, geospatial tools, and AI systems.<br/>
   <sub>Next.js / TypeScript / Cloud / GIS Automation / Remote Sensing</sub>
