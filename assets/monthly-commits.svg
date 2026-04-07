@@ -77,8 +77,8 @@
   
       <text x="843" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">26-03</text>
     
-    <rect x="886" y="118" width="66" height="82" rx="6" fill="#0EA5E9" opacity="0.9"/>
-    <title>2026-04: 97 commits</title>
+    <rect x="886" y="55" width="66" height="145" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <title>2026-04: 172 commits</title>
   
-    <text x="919" y="112" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">97</text>
+    <text x="919" y="49" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">172</text>
   </svg>
