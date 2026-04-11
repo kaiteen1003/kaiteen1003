@@ -7,7 +7,7 @@
   <line x1="50" y1="40" x2="50" y2="200" stroke="#CBD5E1" stroke-width="1"/>
 
   <!-- maxラベル -->
-  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">291</text>
+  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">295</text>
   <text x="42" y="200" text-anchor="end" dominant-baseline="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">0</text>
 
     <rect x="50" y="194" width="66" height="6" rx="6" fill="#0EA5E9" opacity="0.9"/>
@@ -29,10 +29,10 @@
   
       <text x="235" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-07</text>
     
-    <rect x="278" y="110" width="66" height="90" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="278" y="112" width="66" height="88" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-08: 163 commits</title>
   
-    <text x="311" y="104" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">163</text>
+    <text x="311" y="106" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">163</text>
   
     <rect x="354" y="197" width="66" height="3" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-09: 6 commits</title>
@@ -46,17 +46,17 @@
   
     <text x="463" y="185" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">16</text>
   
-    <rect x="506" y="182" width="66" height="18" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="506" y="183" width="66" height="17" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-11: 32 commits</title>
   
-    <text x="539" y="176" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">32</text>
+    <text x="539" y="177" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">32</text>
   
       <text x="539" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-11</text>
     
-    <rect x="582" y="170" width="66" height="30" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="582" y="171" width="66" height="29" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-12: 54 commits</title>
   
-    <text x="615" y="164" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">54</text>
+    <text x="615" y="165" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">54</text>
   
     <rect x="658" y="181" width="66" height="19" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2026-01: 35 commits</title>
@@ -65,20 +65,20 @@
   
       <text x="691" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">26-01</text>
     
-    <rect x="734" y="169" width="66" height="31" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="734" y="170" width="66" height="30" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2026-02: 56 commits</title>
   
-    <text x="767" y="163" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">56</text>
+    <text x="767" y="164" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">56</text>
   
-    <rect x="810" y="96" width="66" height="104" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="810" y="97" width="66" height="103" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2026-03: 190 commits</title>
   
-    <text x="843" y="90" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">190</text>
+    <text x="843" y="91" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">190</text>
   
       <text x="843" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">26-03</text>
     
     <rect x="886" y="40" width="66" height="160" rx="6" fill="#0EA5E9" opacity="0.9"/>
-    <title>2026-04: 291 commits</title>
+    <title>2026-04: 295 commits</title>
   
-    <text x="919" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">291</text>
+    <text x="919" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">295</text>
   </svg>
