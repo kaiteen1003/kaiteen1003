@@ -7,7 +7,7 @@
   <line x1="50" y1="40" x2="50" y2="200" stroke="#CBD5E1" stroke-width="1"/>
 
   <!-- maxラベル -->
-  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">331</text>
+  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">332</text>
   <text x="42" y="200" text-anchor="end" dominant-baseline="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">0</text>
 
     <rect x="50" y="195" width="66" height="5" rx="6" fill="#0EA5E9" opacity="0.9"/>
@@ -17,10 +17,10 @@
   
       <text x="83" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-05</text>
     
-    <rect x="126" y="186" width="66" height="14" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="126" y="187" width="66" height="13" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-06: 28 commits</title>
   
-    <text x="159" y="180" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">28</text>
+    <text x="159" y="181" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">28</text>
   
     <rect x="202" y="181" width="66" height="19" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-07: 40 commits</title>
@@ -78,7 +78,7 @@
       <text x="843" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">26-03</text>
     
     <rect x="886" y="40" width="66" height="160" rx="6" fill="#0EA5E9" opacity="0.9"/>
-    <title>2026-04: 331 commits</title>
+    <title>2026-04: 332 commits</title>
   
-    <text x="919" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">331</text>
+    <text x="919" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">332</text>
   </svg>
