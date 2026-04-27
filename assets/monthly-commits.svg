@@ -7,7 +7,7 @@
   <line x1="50" y1="40" x2="50" y2="200" stroke="#CBD5E1" stroke-width="1"/>
 
   <!-- maxラベル -->
-  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">332</text>
+  <text x="42" y="44" text-anchor="end" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">333</text>
   <text x="42" y="200" text-anchor="end" dominant-baseline="middle" font-family="ui-sans-serif,system-ui" font-size="12" fill="#475569">0</text>
 
     <rect x="50" y="195" width="66" height="5" rx="6" fill="#0EA5E9" opacity="0.9"/>
@@ -29,10 +29,10 @@
   
       <text x="235" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">25-07</text>
     
-    <rect x="278" y="121" width="66" height="79" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="278" y="122" width="66" height="78" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-08: 163 commits</title>
   
-    <text x="311" y="115" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">163</text>
+    <text x="311" y="116" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">163</text>
   
     <rect x="354" y="197" width="66" height="3" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2025-09: 6 commits</title>
@@ -70,15 +70,15 @@
   
     <text x="767" y="167" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">56</text>
   
-    <rect x="810" y="108" width="66" height="92" rx="6" fill="#0EA5E9" opacity="0.9"/>
+    <rect x="810" y="109" width="66" height="91" rx="6" fill="#0EA5E9" opacity="0.9"/>
     <title>2026-03: 190 commits</title>
   
-    <text x="843" y="102" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">190</text>
+    <text x="843" y="103" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">190</text>
   
       <text x="843" y="222" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#475569">26-03</text>
     
     <rect x="886" y="40" width="66" height="160" rx="6" fill="#0EA5E9" opacity="0.9"/>
-    <title>2026-04: 332 commits</title>
+    <title>2026-04: 333 commits</title>
   
-    <text x="919" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">332</text>
+    <text x="919" y="34" text-anchor="middle" font-family="ui-sans-serif,system-ui" font-size="11" fill="#0F172A">333</text>
   </svg>
