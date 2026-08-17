@@ -1,102 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Mini Games | Memory & Slide Puzzle</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <header class="wrap header">
-      <h1>🎮 Mini Games</h1>
-      <p class="sub">Memory（神経衰弱） / Slide Puzzle（スライドパズル）</p>
-    </header>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mini Games — kaiteen1003</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <div class="kicker">kaiteen1003 / playground</div>
+      <h1>MINI<br />GAMES</h1>
+    </div>
+    <p class="lede">記憶力とパズルの2本立て。<br />手数と時間を競うだけの、シンプルな暇つぶし。</p>
+  </header>
 
-    <main class="wrap">
-      <nav class="tabs" aria-label="Game Tabs">
-        <button id="tab-memory" class="tab active" type="button">
-          🧠 Memory
-        </button>
-        <button id="tab-slide" class="tab" type="button">
-          🧩 Slide Puzzle
-        </button>
-      </nav>
+  <div class="tabs">
+    <button type="button" class="tab is-on" data-tab="memory">01 &nbsp;MEMORY</button>
+    <button type="button" class="tab" data-tab="slide">02 &nbsp;SLIDE PUZZLE</button>
+  </div>
 
-      <!-- MEMORY -->
-      <section id="panel-memory" class="panel">
-        <div class="toolbar">
-          <div class="toolbar-left">
-            <label class="label">難易度</label>
-            <select id="memory-difficulty">
-              <option value="4">4×4 (16枚)</option>
-              <option value="6">6×6 (36枚)</option>
-            </select>
-
-            <label class="label">テーマ</label>
-            <select id="memory-theme">
-              <option value="emoji">Emoji</option>
-              <option value="geo">Geo</option>
-            </select>
-          </div>
-
-          <div class="toolbar-right">
-            <div class="stat">手数: <span id="memory-moves">0</span></div>
-            <div class="stat">時間: <span id="memory-time">0</span>s</div>
-            <button id="memory-restart" class="btn" type="button">
-              ↻ リスタート
-            </button>
+  <section class="panel" id="panel-memory">
+    <div class="bar">
+      <div class="bar-left">
+        <div class="field">
+          <div class="label">難易度</div>
+          <div class="seg" id="mem-size">
+            <button type="button" class="is-on" data-v="4">4 × 4</button>
+            <button type="button" data-v="6">6 × 6</button>
           </div>
         </div>
-
-        <div
-          id="memory-board"
-          class="memory-board"
-          aria-label="Memory Board"
-        ></div>
-        <p class="hint">2枚めくって同じ絵柄を揃えると残ります。</p>
-      </section>
-
-      <!-- SLIDE -->
-      <section id="panel-slide" class="panel hidden">
-        <div class="toolbar">
-          <div class="toolbar-left">
-            <label class="label">サイズ</label>
-            <select id="slide-size">
-              <option value="3">3×3</option>
-              <option value="4" selected>4×4</option>
-              <option value="5">5×5</option>
-            </select>
-          </div>
-
-          <div class="toolbar-right">
-            <div class="stat">手数: <span id="slide-moves">0</span></div>
-            <div class="stat">時間: <span id="slide-time">0</span>s</div>
-            <button id="slide-shuffle" class="btn" type="button">
-              🔀 シャッフル
-            </button>
+        <div class="field">
+          <div class="label">テーマ</div>
+          <div class="seg" id="mem-theme">
+            <button type="button" class="is-on" data-v="emoji">FOOD</button>
+            <button type="button" data-v="geo">GEO</button>
           </div>
         </div>
+      </div>
+      <div class="bar-right">
+        <div class="stat is-accent"><div class="stat-k">手数</div><div class="stat-v" id="mem-moves">0</div></div>
+        <div class="stat"><div class="stat-k">時間</div><div class="stat-v"><span id="mem-time">0</span><span class="unit">s</span></div></div>
+        <button type="button" class="btn btn-red" id="mem-restart">↻ RESTART</button>
+      </div>
+    </div>
 
-        <div class="slide-wrap">
-          <div
-            id="slide-board"
-            class="slide-board"
-            aria-label="Slide Puzzle Board"
-          ></div>
+    <div class="board-holder">
+      <div class="mem-board" id="mem-board" aria-label="Memory Board"></div>
+      <div class="overlay" id="mem-overlay" hidden>
+        <div class="modal">
+          <div class="modal-t">CLEAR!</div>
+          <div class="modal-s" id="mem-result"></div>
+          <button type="button" class="btn btn-ink" id="mem-again">もう一回</button>
         </div>
+      </div>
+    </div>
+    <p class="note">2枚めくって同じ絵柄が揃えば残る。揃わなければ裏に戻る。</p>
+  </section>
 
-        <p class="hint">空白（□）の隣のタイルをクリックして動かします。</p>
-      </section>
+  <section class="panel" id="panel-slide" hidden>
+    <div class="bar">
+      <div class="bar-left">
+        <div class="field">
+          <div class="label">サイズ</div>
+          <div class="seg" id="slide-size">
+            <button type="button" data-v="3">3 × 3</button>
+            <button type="button" class="is-on" data-v="4">4 × 4</button>
+            <button type="button" data-v="5">5 × 5</button>
+          </div>
+        </div>
+      </div>
+      <div class="bar-right">
+        <div class="stat is-accent"><div class="stat-k">手数</div><div class="stat-v" id="slide-moves">0</div></div>
+        <div class="stat"><div class="stat-k">時間</div><div class="stat-v"><span id="slide-time">0</span><span class="unit">s</span></div></div>
+        <button type="button" class="btn btn-teal" id="slide-shuffle">⇄ SHUFFLE</button>
+      </div>
+    </div>
 
-      <footer class="footer">
-        <span>Made for GitHub Profile</span>
-        <span class="dot">•</span>
-        <a href="https://github.com/" target="_blank" rel="noreferrer"
-          >GitHub</a
-        >
-      </footer>
-    </main>
+    <div class="board-holder center">
+      <div class="slide-board" id="slide-board" aria-label="Slide Puzzle Board"></div>
+      <div class="overlay" id="slide-overlay" hidden>
+        <div class="modal">
+          <div class="modal-t">SOLVED!</div>
+          <div class="modal-s" id="slide-result"></div>
+          <button type="button" class="btn btn-ink" id="slide-again">シャッフル</button>
+        </div>
+      </div>
+    </div>
+    <p class="note">空きマスの隣をクリック、または矢印キーでスライド。</p>
+  </section>
 
-    <script src="./app.js"></script>
-  </body>
+  <footer class="foot">
+    <span>MADE FOR GITHUB PROFILE</span>
+    <a href="https://github.com/kaiteen1003" target="_blank" rel="noreferrer">github.com/kaiteen1003 →</a>
+  </footer>
+</div>
+<script src="app.js"></script>
+</body>
 </html>

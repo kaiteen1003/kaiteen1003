@@ -1,378 +1,178 @@
-// ===== Utilities =====
-function shuffle(arr) {
-  const a = arr.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+(() => {
+  const THEMES = {
+    emoji: ["🍣","🍙","🍜","🍛","🍡","🍘","🍵","🧋","🍫","🍰","🍎","🍇","🍊","🍓","🥑","🥕","🍤","🥨"],
+    geo:   ["🛰️","📡","🗺️","🧭","🌋","🏝️","🌏","☁️","🌧️","🌿","🌾","🏙️","🏠","🔭","📷","🧪","📈","⛰️"],
+  };
+  const $ = (id) => document.getElementById(id);
+  const shuffled = (arr) => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const neighbors = (n, i) => { const r = Math.floor(i / n), c = i % n, l = []; if (r > 0) l.push(i - n); if (r < n - 1) l.push(i + n); if (c > 0) l.push(i - 1); if (c < n - 1) l.push(i + 1); return l; };
+  const readBest = (k) => { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
+  const writeBest = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+  const bestLabel = (best, size) => (best && best.size === size ? ` ／ BEST ${best.moves}手` : "");
+
+  /* ---------- tabs ---------- */
+  let tab = "memory";
+  document.querySelectorAll(".tab").forEach((b) => {
+    b.addEventListener("click", () => {
+      tab = b.dataset.tab;
+      document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("is-on", x === b));
+      $("panel-memory").hidden = tab !== "memory";
+      $("panel-slide").hidden = tab !== "slide";
+    });
+  });
+  const segment = (rootId, onPick) => {
+    const root = $(rootId);
+    root.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      root.querySelectorAll("button").forEach((x) => x.classList.toggle("is-on", x === b));
+      onPick(b.dataset.v);
+    });
+  };
+
+  /* ---------- memory ---------- */
+  const mem = { size: 4, theme: "emoji", cards: [], first: null, lock: false, moves: 0, matched: 0, time: 0, timer: null, won: false,
+                best: readBest("mg.best.memory") };
+  const memBoard = $("mem-board");
+
+  function memRender() {
+    memBoard.style.gridTemplateColumns = `repeat(${mem.size}, 1fr)`;
+    memBoard.classList.toggle("is-6", mem.size === 6);
+    memBoard.innerHTML = "";
+    mem.cards.forEach((c) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "card" + (c.state !== "hidden" ? " is-up" : "") + (c.state === "matched" ? " is-matched" : "");
+      btn.innerHTML = `<div class="card-inner"><div class="card-back">?</div><div class="card-face">${c.sym}</div></div>`;
+      btn.addEventListener("click", () => memPick(c.id));
+      memBoard.appendChild(btn);
+    });
   }
-  return a;
-}
-function nowSec() {
-  return Math.floor(Date.now() / 1000);
-}
-
-// ===== Tabs =====
-const tabMemory = document.getElementById("tab-memory");
-const tabSlide = document.getElementById("tab-slide");
-const panelMemory = document.getElementById("panel-memory");
-const panelSlide = document.getElementById("panel-slide");
-
-tabMemory.addEventListener("click", () => {
-  tabMemory.classList.add("active");
-  tabSlide.classList.remove("active");
-  panelMemory.classList.remove("hidden");
-  panelSlide.classList.add("hidden");
-});
-
-tabSlide.addEventListener("click", () => {
-  tabSlide.classList.add("active");
-  tabMemory.classList.remove("active");
-  panelSlide.classList.remove("hidden");
-  panelMemory.classList.add("hidden");
-});
-
-// ===== Memory (神経衰弱) =====
-const memoryBoard = document.getElementById("memory-board");
-const memoryMovesEl = document.getElementById("memory-moves");
-const memoryTimeEl = document.getElementById("memory-time");
-const memoryRestartBtn = document.getElementById("memory-restart");
-const memoryDifficulty = document.getElementById("memory-difficulty");
-const memoryTheme = document.getElementById("memory-theme");
-
-let memoryState = {
-  size: 4,
-  theme: "emoji",
-  cards: [],
-  firstPick: null,
-  lock: false,
-  moves: 0,
-  matched: 0,
-  startAt: null,
-  timer: null,
-};
-
-const THEMES = {
-  emoji: [
-    "🍣",
-    "🍙",
-    "🍜",
-    "🍛",
-    "🍡",
-    "🍘",
-    "🍵",
-    "🧋",
-    "🍫",
-    "🍰",
-    "🍎",
-    "🍇",
-    "🍊",
-    "🍓",
-    "🥑",
-    "🥕",
-    "🍤",
-    "🥨",
-    "🍕",
-    "🍔",
-    "🧠",
-    "🛰️",
-    "🛰️‍🧪",
-    "🌏",
-    "🌋",
-    "🗺️",
-    "📡",
-    "🧪",
-    "🧰",
-    "🧩",
-  ],
-  geo: [
-    "🛰️",
-    "📡",
-    "🗺️",
-    "🧭",
-    "🌋",
-    "🏝️",
-    "🌏",
-    "☁️",
-    "🌧️",
-    "🌿",
-    "🌾",
-    "🏙️",
-    "🏠",
-    "🛰️‍🧪",
-    "🔭",
-    "📷",
-    "🧠",
-    "🧪",
-    "📈",
-    "🧩",
-    "🧱",
-    "🧱",
-    "⛰️",
-    "🏞️",
-    "🟦",
-    "🟩",
-    "🟨",
-    "🟥",
-    "🟪",
-    "⬛️",
-  ],
-};
-
-function memoryResetTimer() {
-  if (memoryState.timer) clearInterval(memoryState.timer);
-  memoryState.startAt = null;
-  memoryTimeEl.textContent = "0";
-}
-
-function memoryStartTimerIfNeeded() {
-  if (memoryState.startAt !== null) return;
-  memoryState.startAt = nowSec();
-  memoryState.timer = setInterval(() => {
-    const t = nowSec() - memoryState.startAt;
-    memoryTimeEl.textContent = String(t);
-  }, 250);
-}
-
-function memorySetGrid(size) {
-  memoryBoard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-}
-
-function buildMemoryDeck(size, themeKey) {
-  const total = size * size;
-  const pairs = total / 2;
-  const pool = THEMES[themeKey] ?? THEMES.emoji;
-
-  // 必要数だけ絵柄を取り出す（足りない場合は繰り返す）
-  const symbols = [];
-  for (let i = 0; i < pairs; i++) {
-    symbols.push(pool[i % pool.length]);
+  function memSync() {
+    $("mem-moves").textContent = mem.moves;
+    $("mem-time").textContent = mem.time;
   }
-  const deck = shuffle([...symbols, ...symbols]).map((sym, idx) => ({
-    id: idx,
-    sym,
-    state: "hidden", // hidden | shown | matched
-  }));
-  return deck;
-}
-
-function renderMemory() {
-  memoryBoard.innerHTML = "";
-  memorySetGrid(memoryState.size);
-  for (const card of memoryState.cards) {
-    const btn = document.createElement("button");
-    btn.className = "memory-card";
-    btn.type = "button";
-    btn.dataset.id = String(card.id);
-    btn.dataset.state = card.state;
-    btn.setAttribute("aria-label", "card");
-
-    const face = document.createElement("div");
-    face.className = "face";
-    face.textContent = card.sym;
-
-    btn.appendChild(face);
-    btn.addEventListener("click", () => onMemoryPick(card.id));
-    memoryBoard.appendChild(btn);
+  function memStartTimer() {
+    if (mem.timer) return;
+    const t0 = Date.now();
+    mem.timer = setInterval(() => { mem.time = Math.floor((Date.now() - t0) / 1000); memSync(); }, 250);
   }
-  memoryMovesEl.textContent = String(memoryState.moves);
-}
-
-function setMemoryCardState(id, newState) {
-  const c = memoryState.cards.find((x) => x.id === id);
-  if (!c) return;
-  c.state = newState;
-  const el = memoryBoard.querySelector(`.memory-card[data-id="${id}"]`);
-  if (el) el.dataset.state = newState;
-}
-
-function onMemoryPick(id) {
-  if (memoryState.lock) return;
-
-  const card = memoryState.cards.find((c) => c.id === id);
-  if (!card) return;
-  if (card.state === "matched" || card.state === "shown") return;
-
-  memoryStartTimerIfNeeded();
-
-  setMemoryCardState(id, "shown");
-
-  if (memoryState.firstPick === null) {
-    memoryState.firstPick = id;
-    return;
+  function memInit() {
+    clearInterval(mem.timer); mem.timer = null;
+    const pairs = (mem.size * mem.size) / 2;
+    const pool = THEMES[mem.theme] || THEMES.emoji;
+    const syms = [];
+    for (let i = 0; i < pairs; i++) syms.push(pool[i % pool.length]);
+    mem.cards = shuffled(syms.concat(syms)).map((sym, id) => ({ id, sym, state: "hidden" }));
+    Object.assign(mem, { first: null, lock: false, moves: 0, matched: 0, time: 0, won: false });
+    $("mem-overlay").hidden = true;
+    memRender(); memSync();
   }
-
-  // second pick
-  memoryState.moves += 1;
-  memoryMovesEl.textContent = String(memoryState.moves);
-
-  const a = memoryState.cards.find((c) => c.id === memoryState.firstPick);
-  const b = card;
-
-  memoryState.firstPick = null;
-  memoryState.lock = true;
-
-  const isMatch = a && b && a.sym === b.sym;
-
-  setTimeout(() => {
-    if (isMatch) {
-      setMemoryCardState(a.id, "matched");
-      setMemoryCardState(b.id, "matched");
-      memoryState.matched += 2;
-
-      if (memoryState.matched === memoryState.size * memoryState.size) {
-        // win
-        clearInterval(memoryState.timer);
-        memoryState.timer = null;
+  function memPick(id) {
+    if (mem.lock || mem.won) return;
+    const card = mem.cards.find((c) => c.id === id);
+    if (!card || card.state !== "hidden") return;
+    memStartTimer();
+    card.state = "shown";
+    if (mem.first === null) { mem.first = id; memRender(); return; }
+    const a = mem.cards.find((c) => c.id === mem.first);
+    const match = a && a.sym === card.sym;
+    mem.first = null; mem.lock = true; mem.moves++;
+    memRender(); memSync();
+    setTimeout(() => {
+      a.state = card.state = match ? "matched" : "hidden";
+      if (match) mem.matched += 2;
+      mem.lock = false;
+      if (mem.matched === mem.size * mem.size) {
+        mem.won = true;
+        clearInterval(mem.timer); mem.timer = null;
+        const rec = { moves: mem.moves, time: mem.time, size: mem.size };
+        const cur = mem.best;
+        if (!cur || rec.moves < cur.moves || (rec.moves === cur.moves && rec.time < cur.time)) { mem.best = rec; writeBest("mg.best.memory", rec); }
+        $("mem-result").textContent = `${mem.moves} 手 / ${mem.time} 秒${bestLabel(mem.best, mem.size)}`;
+        $("mem-overlay").hidden = false;
       }
-    } else {
-      setMemoryCardState(a.id, "hidden");
-      setMemoryCardState(b.id, "hidden");
-    }
-
-    memoryState.lock = false;
-  }, 520);
-}
-
-function initMemory() {
-  memoryState.size = Number(memoryDifficulty.value);
-  memoryState.theme = memoryTheme.value;
-  memoryState.cards = buildMemoryDeck(memoryState.size, memoryState.theme);
-  memoryState.firstPick = null;
-  memoryState.lock = false;
-  memoryState.moves = 0;
-  memoryState.matched = 0;
-  memoryResetTimer();
-  renderMemory();
-}
-
-memoryRestartBtn.addEventListener("click", initMemory);
-memoryDifficulty.addEventListener("change", initMemory);
-memoryTheme.addEventListener("change", initMemory);
-
-// ===== Slide Puzzle =====
-const slideBoard = document.getElementById("slide-board");
-const slideMovesEl = document.getElementById("slide-moves");
-const slideTimeEl = document.getElementById("slide-time");
-const slideShuffleBtn = document.getElementById("slide-shuffle");
-const slideSizeSel = document.getElementById("slide-size");
-
-let slideState = {
-  n: 4,
-  tiles: [], // 0 is blank
-  moves: 0,
-  startAt: null,
-  timer: null,
-};
-
-function slideResetTimer() {
-  if (slideState.timer) clearInterval(slideState.timer);
-  slideState.startAt = null;
-  slideTimeEl.textContent = "0";
-}
-function slideStartTimerIfNeeded() {
-  if (slideState.startAt !== null) return;
-  slideState.startAt = nowSec();
-  slideState.timer = setInterval(() => {
-    slideTimeEl.textContent = String(nowSec() - slideState.startAt);
-  }, 250);
-}
-
-function slideSetGrid(n) {
-  slideBoard.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
-}
-
-function slideIsSolved(tiles) {
-  // [1..n^2-1, 0]
-  for (let i = 0; i < tiles.length - 1; i++) {
-    if (tiles[i] !== i + 1) return false;
+      memRender();
+    }, 520);
   }
-  return tiles[tiles.length - 1] === 0;
-}
+  segment("mem-size", (v) => { mem.size = Number(v); memInit(); });
+  segment("mem-theme", (v) => { mem.theme = v; memInit(); });
+  $("mem-restart").addEventListener("click", memInit);
+  $("mem-again").addEventListener("click", memInit);
 
-function slideRender() {
-  slideBoard.innerHTML = "";
-  slideSetGrid(slideState.n);
+  /* ---------- slide puzzle ---------- */
+  const sp = { n: 4, tiles: [], moves: 0, time: 0, timer: null, best: readBest("mg.best.slide") };
+  const spBoard = $("slide-board");
+  const spSolved = (t) => { if (!t.length) return false; for (let i = 0; i < t.length - 1; i++) if (t[i] !== i + 1) return false; return t[t.length - 1] === 0; };
 
-  slideState.tiles.forEach((v, idx) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "tile" + (v === 0 ? " blank" : "");
-    btn.dataset.idx = String(idx);
-    btn.textContent = v === 0 ? "□" : String(v);
+  function spRender() {
+    const won = spSolved(sp.tiles);
+    spBoard.style.gridTemplateColumns = `repeat(${sp.n}, 1fr)`;
+    spBoard.classList.toggle("is-won", won);
+    spBoard.innerHTML = "";
+    sp.tiles.forEach((v, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tile" + (v === 0 ? " is-blank" : "");
+      btn.textContent = v === 0 ? "" : String(v);
+      btn.addEventListener("click", () => spMove(idx));
+      spBoard.appendChild(btn);
+    });
+  }
+  function spSync() { $("slide-moves").textContent = sp.moves; $("slide-time").textContent = sp.time; }
+  function spStartTimer() {
+    if (sp.timer) return;
+    const t0 = Date.now();
+    sp.timer = setInterval(() => { sp.time = Math.floor((Date.now() - t0) / 1000); spSync(); }, 250);
+  }
+  function spShuffle() {
+    clearInterval(sp.timer); sp.timer = null;
+    const total = sp.n * sp.n, t = [];
+    for (let i = 1; i < total; i++) t.push(i);
+    t.push(0);
+    for (let k = 0; k < total * total * 12; k++) {
+      const b = t.indexOf(0), ns = neighbors(sp.n, b), p = ns[Math.floor(Math.random() * ns.length)];
+      [t[p], t[b]] = [t[b], t[p]];
+    }
+    sp.tiles = t; sp.moves = 0; sp.time = 0;
+    $("slide-overlay").hidden = true;
+    spRender(); spSync();
+  }
+  function spMove(idx) {
+    if (spSolved(sp.tiles)) return;
+    const b = sp.tiles.indexOf(0);
+    if (!neighbors(sp.n, idx).includes(b)) return;
+    spStartTimer();
+    [sp.tiles[idx], sp.tiles[b]] = [sp.tiles[b], sp.tiles[idx]];
+    sp.moves++;
+    spRender(); spSync();
+    if (spSolved(sp.tiles)) {
+      clearInterval(sp.timer); sp.timer = null;
+      const rec = { moves: sp.moves, time: sp.time, size: sp.n }, cur = sp.best;
+      if (!cur || rec.moves < cur.moves || (rec.moves === cur.moves && rec.time < cur.time)) { sp.best = rec; writeBest("mg.best.slide", rec); }
+      $("slide-result").textContent = `${sp.moves} 手 / ${sp.time} 秒${bestLabel(sp.best, sp.n)}`;
+      $("slide-overlay").hidden = false;
+    }
+  }
+  segment("slide-size", (v) => { sp.n = Number(v); spShuffle(); });
+  $("slide-shuffle").addEventListener("click", spShuffle);
+  $("slide-again").addEventListener("click", spShuffle);
 
-    btn.addEventListener("click", () => slideTryMove(idx));
-    slideBoard.appendChild(btn);
+  window.addEventListener("keydown", (e) => {
+    if (tab !== "slide") return;
+    const dirs = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right" };
+    const dir = dirs[e.key];
+    if (!dir) return;
+    e.preventDefault();
+    const b = sp.tiles.indexOf(0), r = Math.floor(b / sp.n), c = b % sp.n;
+    let idx = -1;
+    if (dir === "up" && r < sp.n - 1) idx = b + sp.n;
+    if (dir === "down" && r > 0) idx = b - sp.n;
+    if (dir === "left" && c < sp.n - 1) idx = b + 1;
+    if (dir === "right" && c > 0) idx = b - 1;
+    if (idx >= 0) spMove(idx);
   });
 
-  slideMovesEl.textContent = String(slideState.moves);
-
-  if (slideIsSolved(slideState.tiles)) {
-    // win effect
-    const tiles = slideBoard.querySelectorAll(".tile:not(.blank)");
-    tiles.forEach((t) => t.classList.add("win"));
-    if (slideState.timer) {
-      clearInterval(slideState.timer);
-      slideState.timer = null;
-    }
-  }
-}
-
-function neighbors(n, idx) {
-  const r = Math.floor(idx / n);
-  const c = idx % n;
-  const list = [];
-  if (r > 0) list.push(idx - n);
-  if (r < n - 1) list.push(idx + n);
-  if (c > 0) list.push(idx - 1);
-  if (c < n - 1) list.push(idx + 1);
-  return list;
-}
-
-function slideTryMove(idx) {
-  const blankIdx = slideState.tiles.indexOf(0);
-  if (blankIdx === -1) return;
-
-  const can = neighbors(slideState.n, idx).includes(blankIdx);
-  if (!can) return;
-
-  slideStartTimerIfNeeded();
-
-  // swap
-  [slideState.tiles[idx], slideState.tiles[blankIdx]] = [
-    slideState.tiles[blankIdx],
-    slideState.tiles[idx],
-  ];
-  slideState.moves += 1;
-  slideRender();
-}
-
-function slideShuffle() {
-  slideState.n = Number(slideSizeSel.value);
-  const total = slideState.n * slideState.n;
-  slideState.tiles = [];
-  for (let i = 1; i < total; i++) slideState.tiles.push(i);
-  slideState.tiles.push(0);
-
-  // “解ける”状態のまま崩すため、空白の近傍移動をランダムに何回も行う
-  const steps = total * total * 12;
-  for (let k = 0; k < steps; k++) {
-    const blankIdx = slideState.tiles.indexOf(0);
-    const ns = neighbors(slideState.n, blankIdx);
-    const pick = ns[Math.floor(Math.random() * ns.length)];
-    [slideState.tiles[pick], slideState.tiles[blankIdx]] = [
-      slideState.tiles[blankIdx],
-      slideState.tiles[pick],
-    ];
-  }
-
-  slideState.moves = 0;
-  slideResetTimer();
-  slideRender();
-}
-
-slideShuffleBtn.addEventListener("click", slideShuffle);
-slideSizeSel.addEventListener("change", slideShuffle);
-
-// init
-initMemory();
-slideShuffle();
+  memInit();
+  spShuffle();
+})();
