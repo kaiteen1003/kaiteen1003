@@ -222,6 +222,48 @@
 
 <br/>
 
+<!-- ====== Minigame ====== -->
+<div align="center">
+
+<h2>🎮 ブラウザで遊べるミニゲーム</h2>
+
+<p>
+  このプロフィール用に作った暇つぶし2本。神経衰弱とスライドパズル。<br/>
+  素の HTML / CSS / JavaScript のみで実装し、GitHub Pages で公開しています。
+</p>
+
+<p>
+  <a href="https://kaiteen1003.github.io/kaiteen1003/">
+    <img src="https://img.shields.io/badge/%E9%81%8A%E3%81%B3%E3%81%AB%E8%A1%8C%E3%81%8F-E2542C?style=for-the-badge&logo=gamepad&logoColor=white" />
+  </a>
+  <a href="https://github.com/kaiteen1003/kaiteen1003/tree/main/public">
+    <img src="https://img.shields.io/badge/%E3%82%B3%E3%83%BC%E3%83%89-000?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://kaiteen1003.github.io/kaiteen1003/#memory">
+        🧠<br/><b>神経衰弱</b>
+      </a><br/>
+      <sub>4×4 / 6×6・テーマ2種<br/>3Dフリップとベスト記録つき</sub>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://kaiteen1003.github.io/kaiteen1003/#slide">
+        🧩<br/><b>スライドパズル</b>
+      </a><br/>
+      <sub>3×3 / 4×4 / 5×5<br/>クリック・矢印キー操作対応</sub>
+    </td>
+  </tr>
+</table>
+
+<p><sub>HTML / CSS / Vanilla JavaScript / GitHub Pages</sub></p>
+
+</div>
+
+<br/>
+
 <!-- ====== Tech Stack ====== -->
 <div align="center">
 
